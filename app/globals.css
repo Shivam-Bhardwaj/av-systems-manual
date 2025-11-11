@@ -122,4 +122,14 @@
     flex: 1;
     min-width: 0;
   }
+
+  /* Ensure Select dropdown appears above all other content */
+  [data-radix-select-content] {
+    z-index: 100 !important;
+  }
+
+  /* Ensure Portal content is properly layered */
+  [data-radix-portal] {
+    z-index: 100;
+  }
 }
