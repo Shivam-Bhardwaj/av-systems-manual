@@ -65,11 +65,13 @@ export function Navigation() {
             <Link
               href={`/${lang}${item.href}`}
               className={cn(
-                'group flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors',
+                'group flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all min-h-[44px]',
+                'focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2',
                 isActive
-                  ? 'bg-primary text-primary-foreground'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+                  ? 'bg-primary text-primary-foreground shadow-md'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-accent hover:shadow-sm'
               )}
+              aria-current={isActive ? 'page' : undefined}
             >
               <item.icon className="mr-3 h-5 w-5 flex-shrink-0" />
               {item.name}
@@ -82,11 +84,13 @@ export function Navigation() {
                     key={child.name}
                     href={`/${lang}${child.href}`}
                     className={cn(
-                      'group flex items-center px-3 py-2 text-sm rounded-md transition-colors',
+                      'group flex items-center px-4 py-2.5 text-sm rounded-lg transition-all min-h-[44px]',
+                      'focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2',
                       pathname === child.href
-                        ? 'bg-secondary text-secondary-foreground'
+                        ? 'bg-secondary text-secondary-foreground shadow-sm font-semibold'
                         : 'text-muted-foreground hover:text-foreground hover:bg-accent'
                     )}
+                    aria-current={pathname === child.href ? 'page' : undefined}
                   >
                     {'icon' in child && child.icon && <child.icon className="mr-3 h-4 w-4 flex-shrink-0" />}
                     {child.name}
