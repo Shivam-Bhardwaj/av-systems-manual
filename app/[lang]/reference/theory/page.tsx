@@ -1,5 +1,8 @@
+'use client'
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell, PieChart, Pie } from 'recharts'
 
 export default function TheoryPage() {
   return (
@@ -53,7 +56,26 @@ export default function TheoryPage() {
               </ul>
 
               <h4 className="text-lg font-semibold mt-4">Target RT60 Values</h4>
-              <table className="w-full text-sm mt-2">
+              <div className="mt-4">
+                <ResponsiveContainer width="100%" height={250}>
+                  <BarChart data={[
+                    { application: 'Conference', min: 0.4, max: 0.6, ideal: 0.5 },
+                    { application: 'Classroom', min: 0.4, max: 0.7, ideal: 0.55 },
+                    { application: 'Lecture Hall', min: 0.6, max: 1.0, ideal: 0.8 },
+                    { application: 'Music Venue', min: 1.5, max: 2.5, ideal: 2.0 }
+                  ]}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="application" />
+                    <YAxis label={{ value: 'RT60 (seconds)', angle: -90, position: 'insideLeft' }} />
+                    <Tooltip />
+                    <Legend />
+                    <Bar dataKey="min" fill="#ef4444" name="Minimum" />
+                    <Bar dataKey="ideal" fill="#10b981" name="Ideal" />
+                    <Bar dataKey="max" fill="#3b82f6" name="Maximum" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+              <table className="w-full text-sm mt-4">
                 <thead>
                   <tr className="border-b">
                     <th className="text-left py-2">Application</th>
@@ -95,7 +117,32 @@ export default function TheoryPage() {
               </p>
 
               <h4 className="text-lg font-semibold mt-4">STI Scale</h4>
-              <table className="w-full text-sm mt-2">
+              <div className="mt-4">
+                <ResponsiveContainer width="100%" height={200}>
+                  <BarChart data={[
+                    { range: 'Poor\n(<0.45)', value: 0.45, color: '#ef4444' },
+                    { range: 'Fair\n(0.45-0.60)', value: 0.60, color: '#f59e0b' },
+                    { range: 'Good\n(0.60-0.75)', value: 0.75, color: '#3b82f6' },
+                    { range: 'Excellent\n(>0.75)', value: 1.0, color: '#10b981' }
+                  ]} layout="vertical">
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis type="number" domain={[0, 1]} />
+                    <YAxis dataKey="range" type="category" width={100} />
+                    <Tooltip />
+                    <Bar dataKey="value" radius={[0, 8, 8, 0]}>
+                      {[
+                        { range: 'Poor\n(<0.45)', value: 0.45, color: '#ef4444' },
+                        { range: 'Fair\n(0.45-0.60)', value: 0.60, color: '#f59e0b' },
+                        { range: 'Good\n(0.60-0.75)', value: 0.75, color: '#3b82f6' },
+                        { range: 'Excellent\n(>0.75)', value: 1.0, color: '#10b981' }
+                      ].map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.color} />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+              <table className="w-full text-sm mt-4">
                 <thead>
                   <tr className="border-b">
                     <th className="text-left py-2">STI Value</th>
@@ -157,7 +204,25 @@ export default function TheoryPage() {
               </ul>
 
               <h4 className="text-lg font-semibold mt-4">Target SPL Levels</h4>
-              <table className="w-full text-sm mt-2">
+              <div className="mt-4">
+                <ResponsiveContainer width="100%" height={250}>
+                  <BarChart data={[
+                    { application: 'Speech', avg: 65, peak: 85 },
+                    { application: 'Background\nMusic', avg: 75, peak: 90 },
+                    { application: 'Foreground\nMusic', avg: 85, peak: 105 },
+                    { application: 'Concert/\nClub', avg: 95, peak: 115 }
+                  ]}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="application" />
+                    <YAxis label={{ value: 'SPL (dB)', angle: -90, position: 'insideLeft' }} />
+                    <Tooltip />
+                    <Legend />
+                    <Bar dataKey="avg" fill="#3b82f6" name="Average SPL" />
+                    <Bar dataKey="peak" fill="#ef4444" name="Peak SPL" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+              <table className="w-full text-sm mt-4">
                 <thead>
                   <tr className="border-b">
                     <th className="text-left py-2">Application</th>
@@ -199,6 +264,23 @@ export default function TheoryPage() {
               <CardDescription>Choosing the right speaker for your application</CardDescription>
             </CardHeader>
             <CardContent className="prose prose-sm max-w-none">
+              <div className="mb-6">
+                <ResponsiveContainer width="100%" height={200}>
+                  <BarChart data={[
+                    { type: 'Point Source', coverage: 90, cost: 3, versatility: 5 },
+                    { type: 'Line Array', coverage: 5, cost: 1, versatility: 3 },
+                    { type: 'Column', coverage: 15, cost: 2, versatility: 4 },
+                    { type: 'Ceiling', coverage: 120, cost: 3, versatility: 4 }
+                  ]}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="type" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Bar dataKey="coverage" fill="#3b82f6" name="Coverage Angle (°)" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
               <div className="space-y-4">
                 <div>
                   <h4 className="font-semibold">Point Source Speakers</h4>
@@ -297,7 +379,23 @@ export default function TheoryPage() {
               </div>
 
               <h4 className="text-lg font-semibold mt-4">Viewing Angles</h4>
-              <table className="w-full text-sm mt-2">
+              <div className="mt-4">
+                <ResponsiveContainer width="100%" height={200}>
+                  <BarChart data={[
+                    { angle: 'Horizontal\nIdeal', value: 30 },
+                    { angle: 'Horizontal\nMax', value: 45 },
+                    { angle: 'Vertical\nIdeal', value: 15 },
+                    { angle: 'Vertical\nMax', value: 30 }
+                  ]}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="angle" />
+                    <YAxis label={{ value: 'Angle (°)', angle: -90, position: 'insideLeft' }} />
+                    <Tooltip />
+                    <Bar dataKey="value" fill="#8b5cf6" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+              <table className="w-full text-sm mt-4">
                 <thead>
                   <tr className="border-b">
                     <th className="text-left py-2">Angle Type</th>
