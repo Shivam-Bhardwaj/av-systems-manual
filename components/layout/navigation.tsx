@@ -86,7 +86,7 @@ export function Navigation() {
                         : 'text-muted-foreground hover:text-foreground hover:bg-accent'
                     )}
                   >
-                    {child.icon && <child.icon className="mr-3 h-4 w-4 flex-shrink-0" />}
+                    {'icon' in child && child.icon && <child.icon className="mr-3 h-4 w-4 flex-shrink-0" />}
                     {child.name}
                   </Link>
                 ))}

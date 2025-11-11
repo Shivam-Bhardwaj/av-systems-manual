@@ -28,7 +28,10 @@ export default function DelayCalculatorPage() {
   const handleCalculate = () => {
     const result = calculateSystemDelays(
       mainSpeaker,
-      delaySpeakers,
+      delaySpeakers.map(speaker => ({
+        name: speaker.name,
+        position: { x: speaker.x, y: speaker.y, z: speaker.z }
+      })),
       temperature,
       additionalDelay
     )

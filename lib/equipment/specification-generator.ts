@@ -254,7 +254,7 @@ function generateInstallationSpec(
       cableSchedule.push({
         id: `MIC-${cableId++}`,
         type: 'audio',
-        from: mic.location,
+        from: mic.location || 'Microphone',
         to: 'Mixer',
         cableSpec: 'XLR Microphone Cable',
         length: Math.ceil(venue.dimensions.length),

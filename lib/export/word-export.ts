@@ -195,11 +195,15 @@ export async function exportToWord(specification: SystemSpecification): Promise<
             new TableRow({
               children: [
                 new TableCell({
-                  children: [new Paragraph({ text: 'Parameter', bold: true })],
+                  children: [new Paragraph({
+                    children: [new TextRun({ text: 'Parameter', bold: true })]
+                  })],
                   width: { size: 50, type: WidthType.PERCENTAGE }
                 }),
                 new TableCell({
-                  children: [new Paragraph({ text: 'Value', bold: true })],
+                  children: [new Paragraph({
+                    children: [new TextRun({ text: 'Value', bold: true })]
+                  })],
                   width: { size: 50, type: WidthType.PERCENTAGE }
                 })
               ]
@@ -253,7 +257,9 @@ export async function exportToWord(specification: SystemSpecification): Promise<
             new TableRow({
               children: [
                 new TableCell({
-                  children: [new Paragraph({ text: 'Equipment Costs', bold: true })],
+                  children: [new Paragraph({
+                    children: [new TextRun({ text: 'Equipment Costs', bold: true })]
+                  })],
                   columnSpan: 2,
                   shading: { fill: 'E0E0E0' }
                 })
@@ -268,7 +274,9 @@ export async function exportToWord(specification: SystemSpecification): Promise<
             new TableRow({
               children: [
                 new TableCell({
-                  children: [new Paragraph({ text: 'Installation Costs', bold: true })],
+                  children: [new Paragraph({
+                    children: [new TextRun({ text: 'Installation Costs', bold: true })]
+                  })],
                   columnSpan: 2,
                   shading: { fill: 'E0E0E0' }
                 })
@@ -282,7 +290,9 @@ export async function exportToWord(specification: SystemSpecification): Promise<
             new TableRow({
               children: [
                 new TableCell({
-                  children: [new Paragraph({ text: 'Other Costs', bold: true })],
+                  children: [new Paragraph({
+                    children: [new TextRun({ text: 'Other Costs', bold: true })]
+                  })],
                   columnSpan: 2,
                   shading: { fill: 'E0E0E0' }
                 })
@@ -296,13 +306,17 @@ export async function exportToWord(specification: SystemSpecification): Promise<
             new TableRow({
               children: [
                 new TableCell({
-                  children: [new Paragraph({ text: 'GRAND TOTAL', bold: true })],
+                  children: [new Paragraph({
+                    children: [new TextRun({ text: 'GRAND TOTAL', bold: true })]
+                  })],
                   shading: { fill: 'D0D0D0' }
                 }),
                 new TableCell({
                   children: [new Paragraph({ 
-                    text: `$${specification.budget.grandTotal.toFixed(2)}`,
-                    bold: true
+                    children: [new TextRun({
+                      text: `$${specification.budget.grandTotal.toFixed(2)}`,
+                      bold: true
+                    })]
                   })],
                   shading: { fill: 'D0D0D0' }
                 })
@@ -316,7 +330,7 @@ export async function exportToWord(specification: SystemSpecification): Promise<
 
   // Generate document
   const buffer = await Packer.toBuffer(doc)
-  return new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' })
+  return new Blob([new Uint8Array(buffer)], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' })
 }
 
 function createEquipmentParagraphs(items: any[], subtitle?: string): Paragraph[] {
@@ -373,13 +387,17 @@ function createBudgetRow(label: string, amount: number, bold: boolean = false): 
   return new TableRow({
     children: [
       new TableCell({
-        children: [new Paragraph({ text: label, bold })],
+        children: [new Paragraph({
+          children: [new TextRun({ text: label, bold })]
+        })],
         width: { size: 70, type: WidthType.PERCENTAGE }
       }),
       new TableCell({
         children: [new Paragraph({ 
-          text: `$${amount.toFixed(2)}`,
-          bold,
+          children: [new TextRun({
+            text: `$${amount.toFixed(2)}`,
+            bold
+          })],
           alignment: AlignmentType.RIGHT
         })],
         width: { size: 30, type: WidthType.PERCENTAGE }
