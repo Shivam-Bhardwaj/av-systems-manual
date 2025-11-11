@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 @layer base {
   :root {
@@ -108,5 +106,30 @@
   
   .card-shadow:hover {
     box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  }
+
+  /* Fix Select component overlap issues */
+  [data-radix-select-trigger] {
+    position: relative;
+    overflow: hidden;
+  }
+
+  [data-radix-select-trigger] > span {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* Ensure Select dropdown appears above all other content */
+  [data-radix-select-content] {
+    z-index: 100 !important;
+  }
+
+  /* Ensure Portal content is properly layered */
+  [data-radix-portal] {
+    z-index: 100;
   }
 }
