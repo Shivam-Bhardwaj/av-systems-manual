@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 import { Navigation } from "@/components/layout/navigation";
 import { LanguageSwitcher } from "@/components/layout/language-switcher";
 
@@ -15,15 +15,20 @@ export const metadata: Metadata = {
   keywords: ["AV systems", "audio engineering", "speaker calculator", "RT60", "SPL", "acoustic design"],
 };
 
-export default function RootLayout({
+export async function generateStaticParams() {
+  return [{ lang: 'en' }, { lang: 'hi' }]
+}
+
+export default async function RootLayout({
   children,
   params,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-  params: { lang: string };
-}>) {
+  params: Promise<{ lang: string }>;
+}) {
+  const { lang } = await params;
   return (
-    <html lang={params.lang} suppressHydrationWarning>
+    <html lang={lang} suppressHydrationWarning>
       <body
         className={`${inter.variable} font-sans antialiased`}
       >
