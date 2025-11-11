@@ -11,7 +11,8 @@ import { Textarea } from '@/components/ui/textarea'
 import { generateSystemSpecification } from '@/lib/equipment/specification-generator'
 import { exportSpecification, downloadBlob } from '@/lib/export'
 import { VenueSpecifications, VenueType, VenueCategory } from '@/lib/types'
-import { FileText, FileSpreadsheet, File } from 'lucide-react'
+import { FileText, FileSpreadsheet, File, Lightbulb, AlertTriangle, CheckCircle, Info, Zap, AlertCircle } from 'lucide-react'
+import { SystemSuggestion } from '@/lib/intuition'
 import venueTemplates from '@/data/venue-templates.json'
 
 interface SpecificationFormData {
@@ -324,6 +325,143 @@ export default function SpecificationGeneratorPage() {
         <div className="space-y-4">
           {specification ? (
             <>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Lightbulb className="h-5 w-5" />
+                    System Intuition & Recommendations
+                  </CardTitle>
+                  <CardDescription>
+                    Intelligent suggestions based on your venue specifications
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {specification.intuition ? (
+                    <div className="space-y-6">
+                      {/* Feasibility Status */}
+                      <div>
+                        <h3 className="font-semibold mb-3">Feasibility Status</h3>
+                        <div className="grid grid-cols-2 gap-3">
+                          <div className={`p-3 rounded-lg border ${
+                            specification.intuition.feasibility.power.status === 'ok' 
+                              ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800'
+                              : specification.intuition.feasibility.power.status === 'warning'
+                              ? 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800'
+                              : 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800'
+                          }`}>
+                            <div className="flex items-center gap-2 mb-1">
+                              <Zap className="h-4 w-4" />
+                              <span className="text-sm font-medium">Power</span>
+                            </div>
+                            <p className="text-xs text-muted-foreground">
+                              Load: {specification.intuition.feasibility.power.totalLoad.toFixed(0)}W
+                            </p>
+                            <p className="text-xs text-muted-foreground">
+                              Breaker: {specification.intuition.feasibility.power.recommendedBreaker}A
+                            </p>
+                          </div>
+                          <div className={`p-3 rounded-lg border ${
+                            specification.intuition.feasibility.acoustics.rt60Status === 'ok' 
+                              ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800'
+                              : specification.intuition.feasibility.acoustics.rt60Status === 'warning'
+                              ? 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800'
+                              : 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800'
+                          }`}>
+                            <div className="flex items-center gap-2 mb-1">
+                              <AlertCircle className="h-4 w-4" />
+                              <span className="text-sm font-medium">Acoustics</span>
+                            </div>
+                            <p className="text-xs text-muted-foreground">
+                              RT60: {specification.intuition.feasibility.acoustics.rt60Status}
+                            </p>
+                            <p className="text-xs text-muted-foreground">
+                              STI: {specification.intuition.feasibility.acoustics.stiStatus}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Suggestions */}
+                      {specification.intuition.suggestions.length > 0 && (
+                        <div>
+                          <h3 className="font-semibold mb-3">Suggestions</h3>
+                          <div className="space-y-2">
+                            {specification.intuition.suggestions.slice(0, 5).map((suggestion: SystemSuggestion) => {
+                              const getIcon = () => {
+                                switch (suggestion.severity) {
+                                  case 'critical':
+                                    return <AlertTriangle className="h-4 w-4 text-red-500" />
+                                  case 'warning':
+                                    return <AlertTriangle className="h-4 w-4 text-yellow-500" />
+                                  case 'success':
+                                    return <CheckCircle className="h-4 w-4 text-green-500" />
+                                  default:
+                                    return <Info className="h-4 w-4 text-blue-500" />
+                                }
+                              }
+                              
+                              const getBgColor = () => {
+                                switch (suggestion.severity) {
+                                  case 'critical':
+                                    return 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800'
+                                  case 'warning':
+                                    return 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800'
+                                  case 'success':
+                                    return 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800'
+                                  default:
+                                    return 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800'
+                                }
+                              }
+
+                              return (
+                                <div key={suggestion.id} className={`p-3 rounded-lg border ${getBgColor()}`}>
+                                  <div className="flex items-start gap-2">
+                                    {getIcon()}
+                                    <div className="flex-1">
+                                      <p className="text-sm font-medium">{suggestion.title.en}</p>
+                                      <p className="text-xs text-muted-foreground mt-1">
+                                        {suggestion.description.en}
+                                      </p>
+                                      {suggestion.action?.estimatedSavings && (
+                                        <p className="text-xs font-semibold text-green-600 dark:text-green-400 mt-1">
+                                          Estimated savings: ${suggestion.action.estimatedSavings.toLocaleString()}
+                                        </p>
+                                      )}
+                                    </div>
+                                  </div>
+                                </div>
+                              )
+                            })}
+                          </div>
+                          {specification.intuition.suggestions.length > 5 && (
+                            <p className="text-xs text-muted-foreground mt-2">
+                              +{specification.intuition.suggestions.length - 5} more suggestions
+                            </p>
+                          )}
+                        </div>
+                      )}
+
+                      {/* Compatibility Issues */}
+                      {specification.intuition.feasibility.compatibility.issues.length > 0 && (
+                        <div>
+                          <h3 className="font-semibold mb-3 text-red-600 dark:text-red-400">Compatibility Issues</h3>
+                          <div className="space-y-2">
+                            {specification.intuition.feasibility.compatibility.issues.map((issue: { equipment1: string; equipment2: string; issue: string }, idx: number) => (
+                              <div key={idx} className="p-3 rounded-lg border bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800">
+                                <p className="text-sm font-medium">{issue.equipment1} ↔ {issue.equipment2}</p>
+                                <p className="text-xs text-muted-foreground mt-1">{issue.issue}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <p className="text-sm text-muted-foreground">No recommendations available</p>
+                  )}
+                </CardContent>
+              </Card>
+
               <Card>
                 <CardHeader>
                   <CardTitle>Specification Generated</CardTitle>

@@ -19,6 +19,7 @@ import { calculateRT60, ABSORPTION_COEFFICIENTS, RoomSurface } from '@/lib/acous
 import { calculateSTI, STIParameters } from '@/lib/acoustics/sti'
 import { calculateSystemDelays } from '@/lib/acoustics/delay'
 import { calculateCoverageGrid } from '@/lib/acoustics/spl'
+import { generateSystemIntuition } from '@/lib/intuition'
 
 /**
  * Generate complete system specification
@@ -133,7 +134,8 @@ export async function generateSystemSpecification(
   // Calculate budget
   const budget = calculateBudget(audioSpec, installation)
   
-  return {
+  // Generate system specification
+  const spec: SystemSpecification = {
     id,
     projectName,
     createdAt: new Date(),
@@ -144,8 +146,14 @@ export async function generateSystemSpecification(
       // TODO: Add video and control systems
     },
     installation,
-    budget
+    budget,
+    intuition: generateSystemIntuition(venue, undefined) // Generate initial intuition before spec exists
   }
+  
+  // Generate system intuition with the complete specification
+  spec.intuition = generateSystemIntuition(venue, spec)
+  
+  return spec
 }
 
 /**

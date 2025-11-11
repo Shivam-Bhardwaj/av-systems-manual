@@ -1,5 +1,6 @@
 import { VenueSpecifications } from './venue';
 import { Equipment } from './equipment';
+import { IntuitionResult } from '@/lib/intuition';
 
 export interface SystemSpecification {
   id: string;
@@ -14,6 +15,7 @@ export interface SystemSpecification {
   };
   installation: InstallationSpec;
   budget: BudgetSummary;
+  intuition?: IntuitionResult;
   notes?: string;
 }
 
