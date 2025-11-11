@@ -8,6 +8,14 @@ jest.mock('next/navigation', () => ({
   usePathname: jest.fn(),
 }))
 
+// Mock next/link
+jest.mock('next/link', () => ({
+  __esModule: true,
+  default: ({ children, href }: { children: React.ReactNode; href: string }) => (
+    <a href={href}>{children}</a>
+  ),
+}))
+
 describe('LanguageSwitcher', () => {
   beforeEach(() => {
     jest.clearAllMocks()
@@ -29,7 +37,9 @@ describe('LanguageSwitcher', () => {
     const button = screen.getByRole('button', { name: /change language/i })
     await user.click(button)
     
-    const englishLink = screen.getByRole('link', { name: /english/i })
+    const englishText = screen.getByText('English')
+    const englishLink = englishText.closest('a')
+    expect(englishLink).toBeInTheDocument()
     expect(englishLink).toHaveAttribute('href', '/en/calculator')
   })
 
@@ -41,7 +51,9 @@ describe('LanguageSwitcher', () => {
     const button = screen.getByRole('button', { name: /change language/i })
     await user.click(button)
     
-    const hindiLink = screen.getByRole('link', { name: /hindi/i })
+    const hindiText = screen.getByText('Hindi')
+    const hindiLink = hindiText.closest('a')
+    expect(hindiLink).toBeInTheDocument()
     expect(hindiLink).toHaveAttribute('href', '/hi/calculator')
   })
 
@@ -53,7 +65,9 @@ describe('LanguageSwitcher', () => {
     const button = screen.getByRole('button', { name: /change language/i })
     await user.click(button)
     
-    const hindiLink = screen.getByRole('link', { name: /hindi/i })
+    const hindiText = screen.getByText('Hindi')
+    const hindiLink = hindiText.closest('a')
+    expect(hindiLink).toBeInTheDocument()
     expect(hindiLink).toHaveAttribute('href', '/hi')
   })
 
@@ -65,8 +79,10 @@ describe('LanguageSwitcher', () => {
     const button = screen.getByRole('button', { name: /change language/i })
     await user.click(button)
     
-    const englishLink = screen.getByRole('link', { name: /english/i })
-    expect(englishLink).toHaveAttribute('href', '/')
+    const englishText = screen.getByText('English')
+    const englishLink = englishText.closest('a')
+    expect(englishLink).toBeInTheDocument()
+    expect(englishLink).toHaveAttribute('href', '/en')
   })
 })
 

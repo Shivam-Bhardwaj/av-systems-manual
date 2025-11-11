@@ -16,10 +16,14 @@ export function LanguageSwitcher() {
   const pathname = usePathname()
   
   const getLanguagePath = (locale: string) => {
-    if (!pathname) return '/'
-    const segments = pathname.split('/')
-    segments[1] = locale
-    return segments.join('/')
+    if (!pathname) return `/${locale}`
+    const segments = pathname.split('/').filter(Boolean)
+    if (segments.length === 0) {
+      return `/${locale}`
+    }
+    // Replace the first segment (language) with the new locale
+    segments[0] = locale
+    return `/${segments.join('/')}`
   }
 
   return (
@@ -31,10 +35,10 @@ export function LanguageSwitcher() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem>
+        <DropdownMenuItem asChild>
           <Link href={getLanguagePath('en')}>English</Link>
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem asChild>
           <Link href={getLanguagePath('hi')}>Hindi</Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
