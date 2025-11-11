@@ -178,7 +178,7 @@ export default function CableLossCalculatorPage() {
                     onValueChange={(v) => setDistributedData({ ...distributedData, systemVoltage: parseFloat(v) as 70 | 100 })}
                   >
                     <SelectTrigger id="systemVoltage">
-                      <SelectValue />
+                      <SelectValue placeholder="Select voltage" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="70">70V</SelectItem>
