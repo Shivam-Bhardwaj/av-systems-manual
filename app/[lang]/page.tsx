@@ -13,7 +13,7 @@ import {
   Sparkles
 } from 'lucide-react'
 
-export default function Home() {
+export default function Home({ params }: { params: { lang: string } }) {
   const calculators = [
     {
       title: 'Room Acoustics (RT60)',
@@ -46,7 +46,7 @@ export default function Home() {
     {
       title: 'Video Calculator',
       description: 'Determine display size and viewing angles',
-      href: '/calculator/video',
+      href: `/${params.lang}/calculator/video`,
       icon: Monitor,
       color: 'text-pink-600 bg-pink-50'
     }
@@ -56,7 +56,7 @@ export default function Home() {
     {
       title: 'Generate Specification',
       description: 'Create a complete AV system specification document',
-      href: '/specification/generator',
+      href: `/${params.lang}/specification/generator`,
       icon: FileText
     },
     {
@@ -68,7 +68,7 @@ export default function Home() {
     {
       title: 'Installation Guide',
       description: 'Best practices for system installation and commissioning',
-      href: '/reference/installation',
+      href: `/${params.lang}/reference/installation`,
       icon: Calculator
     }
   ]
@@ -96,7 +96,7 @@ export default function Home() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Link href="/specification/generator">
+          <Link href={`/${params.lang}/specification/generator`}>
             <Button size="lg" className="gap-2">
               Generate System Specification
               <ArrowRight className="h-4 w-4" />

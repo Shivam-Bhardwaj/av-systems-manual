@@ -1,0 +1,181 @@
+{
+  "templates": [
+    {
+      "type": "conference-room-small",
+      "category": "corporate",
+      "name": "Small Conference Room",
+      "description": "4-8 person huddle space or small meeting room",
+      "typicalDimensions": {
+        "length": 4,
+        "width": 3,
+        "height": 2.7
+      },
+      "capacity": {
+        "seated": 8
+      },
+      "acoustics": {
+        "ambientNoise": 40,
+        "targetRT60": 0.5,
+        "targetSTI": 0.75,
+        "targetSPL": {
+          "average": 65,
+          "peak": 85
+        }
+      },
+      "useCases": [
+        "Video conferencing",
+        "Small team meetings",
+        "Phone conferences",
+        "Presentations"
+      ],
+      "recommendedSystems": {
+        "speakers": "2x ceiling speakers or soundbar",
+        "microphones": "Ceiling array or table mic",
+        "display": "55-65\" display",
+        "control": "Touch panel or button panel"
+      }
+    },
+    {
+      "type": "conference-room-medium",
+      "category": "corporate",
+      "name": "Medium Conference Room",
+      "description": "10-20 person conference room",
+      "typicalDimensions": {
+        "length": 8,
+        "width": 5,
+        "height": 2.7
+      },
+      "capacity": {
+        "seated": 20
+      },
+      "acoustics": {
+        "ambientNoise": 40,
+        "targetRT60": 0.6,
+        "targetSTI": 0.70,
+        "targetSPL": {
+          "average": 70,
+          "peak": 90
+        }
+      },
+      "useCases": [
+        "Department meetings",
+        "Video conferencing",
+        "Training sessions",
+        "Client presentations"
+      ],
+      "recommendedSystems": {
+        "speakers": "4-6 ceiling speakers",
+        "microphones": "2x ceiling arrays or wireless mics",
+        "display": "75-85\" display or dual 65\"",
+        "control": "Touch panel with presets"
+      }
+    },
+    {
+      "type": "classroom-large",
+      "category": "education",
+      "name": "Large Classroom",
+      "description": "30-50 student classroom",
+      "typicalDimensions": {
+        "length": 12,
+        "width": 8,
+        "height": 3
+      },
+      "capacity": {
+        "seated": 50
+      },
+      "acoustics": {
+        "ambientNoise": 45,
+        "targetRT60": 0.7,
+        "targetSTI": 0.65,
+        "targetSPL": {
+          "average": 75,
+          "peak": 95
+        }
+      },
+      "useCases": [
+        "Lectures",
+        "Interactive teaching",
+        "Video playback",
+        "Distance learning"
+      ],
+      "recommendedSystems": {
+        "speakers": "4-6 wall-mounted speakers",
+        "microphones": "Wireless instructor mic + ceiling mics",
+        "display": "Projector + 100\" screen or LED wall",
+        "control": "Wall-mounted control panel"
+      }
+    },
+    {
+      "type": "auditorium",
+      "category": "education",
+      "name": "Auditorium",
+      "description": "150-500 seat auditorium",
+      "typicalDimensions": {
+        "length": 25,
+        "width": 20,
+        "height": 8
+      },
+      "capacity": {
+        "seated": 300
+      },
+      "acoustics": {
+        "ambientNoise": 35,
+        "targetRT60": 1.0,
+        "targetSTI": 0.60,
+        "targetSPL": {
+          "average": 85,
+          "peak": 105
+        }
+      },
+      "useCases": [
+        "Lectures",
+        "Presentations",
+        "Performances",
+        "Ceremonies",
+        "Film screening"
+      ],
+      "recommendedSystems": {
+        "speakers": "Line array or point source clusters + delays",
+        "microphones": "Wireless handhelds + podium mic",
+        "display": "Large projection or LED wall",
+        "control": "Rack-mounted processor with touch panel"
+      }
+    },
+    {
+      "type": "sanctuary-medium",
+      "category": "worship",
+      "name": "Medium Sanctuary",
+      "description": "300-600 seat worship space",
+      "typicalDimensions": {
+        "length": 30,
+        "width": 20,
+        "height": 9
+      },
+      "capacity": {
+        "seated": 450
+      },
+      "acoustics": {
+        "ambientNoise": 35,
+        "targetRT60": 1.8,
+        "targetSTI": 0.55,
+        "targetSPL": {
+          "average": 90,
+          "peak": 110
+        }
+      },
+      "useCases": [
+        "Worship services",
+        "Concerts",
+        "Weddings",
+        "Community events",
+        "Choir performances"
+      ],
+      "recommendedSystems": {
+        "speakers": "Line arrays L/R + front fills + delays",
+        "microphones": "Choir mics + wireless handhelds + instruments",
+        "display": "Side projection screens or LED walls",
+        "control": "Digital mixer with tablet control"
+      }
+    }
+  ]
+}

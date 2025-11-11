@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useParams } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { 
   Calculator, 
@@ -51,6 +51,8 @@ const navigation = [
 
 export function Navigation() {
   const pathname = usePathname()
+  const params = useParams()
+  const lang = params.lang
 
   return (
     <nav className="space-y-1">
@@ -61,7 +63,7 @@ export function Navigation() {
         return (
           <div key={item.name}>
             <Link
-              href={item.href}
+              href={`/${lang}${item.href}`}
               className={cn(
                 'group flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors',
                 isActive
@@ -78,7 +80,7 @@ export function Navigation() {
                 {item.children.map((child) => (
                   <Link
                     key={child.name}
-                    href={child.href}
+                    href={`/${lang}${child.href}`}
                     className={cn(
                       'group flex items-center px-3 py-2 text-sm rounded-md transition-colors',
                       pathname === child.href
