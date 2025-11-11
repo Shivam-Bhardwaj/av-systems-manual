@@ -1,50 +1,60 @@
-# AV Systems Manual - Git Worktree Workflow
+# AV Systems Manual - Issue-Based Development Workflow
 
-This repository uses git worktrees for issue-based development.
+## Quick Start
 
-## Workflow
+When you create a GitHub issue and paste the link here, I will:
 
-When you create a GitHub issue and want to fix it:
+1. **Parse the issue URL** and extract issue number and details
+2. **Create a git worktree** with a feature branch
+3. **Fix the issue** in the worktree
+4. **Commit the changes** with proper message
+5. **Push the branch** and create a PR
 
-1. **Create worktree** (automated via script):
-   ```bash
-   cd /root/repos/av-systems-manual
-   ./worktree-helper.sh <issue-number> <issue-title>
-   ```
-   
-   Example:
-   ```bash
-   ./worktree-helper.sh 42 fix-spl-calculator-display
-   ```
+## Usage
 
-2. **Work on the issue**:
-   ```bash
-   cd /root/.cursor/worktrees/av-systems-manual/issue-42-fix-spl-calculator-display
-   # Make your changes...
-   ```
+Just paste a GitHub issue URL like:
+```
+https://github.com/Shivam-Bhardwaj/av-systems-manual/issues/42
+```
 
-3. **Commit and push**:
-   ```bash
-   git add .
-   git commit -m "Fix #42: fix-spl-calculator-display"
-   git push origin issue-42-fix-spl-calculator-display
-   ```
+I'll handle the rest automatically!
 
-4. **Create PR**:
-   - Go to GitHub repository
-   - Create PR from `issue-42-fix-spl-calculator-display` to `main`
-   - Link the PR to the issue using "Fixes #42" or "Closes #42"
+## Manual Workflow (if needed)
 
-## Worktree Locations
+### Create Worktree
+```bash
+cd /root/repos/av-systems-manual
+./issue-handler.sh https://github.com/Shivam-Bhardwaj/av-systems-manual/issues/42
+```
 
-- Main repository: `/root/repos/av-systems-manual`
-- Worktrees: `/root/.cursor/worktrees/av-systems-manual/<branch-name>`
+### Work on Issue
+```bash
+cd /root/.cursor/worktrees/av-systems-manual/issue-42-<title>
+# Make changes...
+git add .
+git commit -m "Fix #42: <description>"
+git push origin issue-42-<title>
+```
+
+### Create PR
+```bash
+gh pr create --title "Fix #42: <description>" --body "Fixes #42"
+```
+
+Or create manually on GitHub.
+
+## Worktree Structure
+
+- **Main repo**: `/root/repos/av-systems-manual`
+- **Worktrees**: `/root/.cursor/worktrees/av-systems-manual/<branch-name>`
+- **Issue info**: Each worktree contains `.issue-info` file with issue details
 
 ## Cleanup
 
-To remove a worktree after PR is merged:
+After PR is merged:
 ```bash
 cd /root/repos/av-systems-manual
 git worktree remove /root/.cursor/worktrees/av-systems-manual/<branch-name>
+git branch -d issue-<num>-<title>  # Delete local branch
 ```
 
