@@ -13,40 +13,41 @@ import {
   Sparkles
 } from 'lucide-react'
 
-export default function Home() {
+export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
   const calculators = [
     {
       title: 'Room Acoustics (RT60)',
       description: 'Calculate reverberation time and acoustic treatment requirements',
-      href: '/calculator/room-acoustics',
+      href: `/${lang}/calculator/room-acoustics`,
       icon: Volume2,
       color: 'text-blue-600 bg-blue-50'
     },
     {
       title: 'SPL Calculator',
       description: 'Determine speaker requirements and coverage patterns',
-      href: '/calculator/spl',
+      href: `/${lang}/calculator/spl`,
       icon: Volume2,
       color: 'text-green-600 bg-green-50'
     },
     {
       title: 'Delay Calculator',
       description: 'Calculate delay times for distributed speaker systems',
-      href: '/calculator/delay',
+      href: `/${lang}/calculator/delay`,
       icon: Clock,
       color: 'text-purple-600 bg-purple-50'
     },
     {
       title: 'Cable Loss',
       description: 'Calculate voltage drop and power loss in speaker cables',
-      href: '/calculator/cable-loss',
+      href: `/${lang}/calculator/cable-loss`,
       icon: Wifi,
       color: 'text-orange-600 bg-orange-50'
     },
     {
       title: 'Video Calculator',
       description: 'Determine display size and viewing angles',
-      href: '/calculator/video',
+      href: `/${lang}/calculator/video`,
       icon: Monitor,
       color: 'text-pink-600 bg-pink-50'
     }
@@ -56,19 +57,19 @@ export default function Home() {
     {
       title: 'Generate Specification',
       description: 'Create a complete AV system specification document',
-      href: '/specification/generator',
+      href: `/${lang}/specification/generator`,
       icon: FileText
     },
     {
       title: 'Theory & Principles',
       description: 'Learn about acoustic principles and AV system design',
-      href: '/reference/theory',
+      href: `/${lang}/reference/theory`,
       icon: BookOpen
     },
     {
       title: 'Installation Guide',
       description: 'Best practices for system installation and commissioning',
-      href: '/reference/installation',
+      href: `/${lang}/reference/installation`,
       icon: Calculator
     }
   ]
@@ -96,7 +97,7 @@ export default function Home() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Link href="/specification/generator">
+          <Link href={`/${lang}/specification/generator`}>
             <Button size="lg" className="gap-2">
               Generate System Specification
               <ArrowRight className="h-4 w-4" />

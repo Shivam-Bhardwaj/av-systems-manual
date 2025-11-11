@@ -1,0 +1,115 @@
+{
+  "acoustic": {
+    "rt60Targets": {
+      "speech": {
+        "conference-room": { "min": 0.4, "max": 0.6, "ideal": 0.5 },
+        "classroom": { "min": 0.4, "max": 0.7, "ideal": 0.6 },
+        "lecture-hall": { "min": 0.6, "max": 1.0, "ideal": 0.8 },
+        "auditorium": { "min": 0.8, "max": 1.2, "ideal": 1.0 }
+      },
+      "music": {
+        "chamber": { "min": 1.4, "max": 1.8, "ideal": 1.6 },
+        "orchestral": { "min": 1.8, "max": 2.2, "ideal": 2.0 },
+        "worship": { "min": 1.5, "max": 2.5, "ideal": 2.0 }
+      },
+      "multipurpose": {
+        "default": { "min": 1.0, "max": 1.5, "ideal": 1.2 }
+      }
+    },
+    "stiTargets": {
+      "excellent": { "min": 0.75, "description": "Excellent intelligibility" },
+      "good": { "min": 0.60, "max": 0.75, "description": "Good intelligibility" },
+      "fair": { "min": 0.45, "max": 0.60, "description": "Fair intelligibility" },
+      "poor": { "max": 0.45, "description": "Poor intelligibility" }
+    },
+    "splRequirements": {
+      "speech": {
+        "average": 65,
+        "peak": 85,
+        "headroom": 20
+      },
+      "music": {
+        "background": { "average": 75, "peak": 90 },
+        "foreground": { "average": 85, "peak": 105 },
+        "concert": { "average": 95, "peak": 115 }
+      }
+    },
+    "ambientNoiseLevels": {
+      "NC-15": { "description": "Recording studios", "dBA": 25 },
+      "NC-20": { "description": "Concert halls", "dBA": 30 },
+      "NC-25": { "description": "Auditoriums", "dBA": 35 },
+      "NC-30": { "description": "Churches, conference rooms", "dBA": 40 },
+      "NC-35": { "description": "Classrooms, offices", "dBA": 45 },
+      "NC-40": { "description": "Restaurants, lobbies", "dBA": 50 }
+    }
+  },
+  "video": {
+    "viewingAngles": {
+      "horizontal": {
+        "ideal": 30,
+        "acceptable": 45,
+        "maximum": 60
+      },
+      "vertical": {
+        "ideal": 15,
+        "acceptable": 25,
+        "maximum": 35
+      }
+    },
+    "screenSizing": {
+      "minHeight": {
+        "detailed": 0.125,
+        "general": 0.167
+      },
+      "aspectRatios": [
+        { "name": "16:9", "value": 1.778 },
+        { "name": "16:10", "value": 1.6 },
+        { "name": "4:3", "value": 1.333 },
+        { "name": "21:9", "value": 2.333 }
+      ]
+    },
+    "brightness": {
+      "darkRoom": { "min": 12, "ideal": 16 },
+      "dimRoom": { "min": 25, "ideal": 35 },
+      "brightRoom": { "min": 50, "ideal": 75 }
+    }
+  },
+  "electrical": {
+    "derating": 0.8,
+    "powerFactors": {
+      "amplifier": 0.8,
+      "display": 0.95,
+      "projector": 0.85
+    },
+    "circuitTypes": [
+      { "voltage": 120, "current": 15, "watts": 1440 },
+      { "voltage": 120, "current": 20, "watts": 1920 },
+      { "voltage": 208, "current": 20, "watts": 3328 },
+      { "voltage": 208, "current": 30, "watts": 4992 }
+    ]
+  },
+  "labor": {
+    "hourlyRates": {
+      "technician": 75,
+      "engineer": 125,
+      "programmer": 150,
+      "projectManager": 100
+    },
+    "taskDurations": {
+      "speakerInstall": {
+        "ceiling": 1.5,
+        "wall": 2.0,
+        "flown": 4.0
+      },
+      "cableRun": {
+        "exposed": 0.05,
+        "conduit": 0.1,
+        "plenum": 0.15
+      },
+      "rackBuild": {
+        "perUnit": 0.5,
+        "termination": 0.25
+      }
+    }
+  }
+}
